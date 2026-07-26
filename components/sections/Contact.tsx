@@ -32,7 +32,7 @@ export function Contact() {
     setForm((f) => ({ ...f, [key]: e.target.value }));
 
   return (
-    <section id="contact" className="relative scroll-mt-24 py-24">
+    <section id="contact" className="relative scroll-mt-24 overflow-hidden py-24">
       <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/10 blur-[120px]" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
