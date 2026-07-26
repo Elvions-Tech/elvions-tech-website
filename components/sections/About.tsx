@@ -16,7 +16,7 @@ const VALUES = [
 
 export function About() {
   return (
-    <section id="about" className="relative bg-soft py-24">
+    <section id="about" className="relative scroll-mt-24 bg-soft py-24">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
         <MotionDiv
           initial={{ opacity: 0, x: -30 }}

@@ -29,7 +29,7 @@ const STATS = [
 
 export function Products() {
   return (
-    <section id="products" className="relative bg-soft py-24">
+    <section id="products" className="relative scroll-mt-24 bg-soft py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Products"

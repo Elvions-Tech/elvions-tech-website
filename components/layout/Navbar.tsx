@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from '@/components/motion';
 import { MoonIcon, SunIcon, MenuIcon, XIcon } from 'lucide-react';
 import { brandAssets } from '@/data/brand';
@@ -12,15 +11,32 @@ import { useThemeContext } from '@/components/layout/ThemeProvider';
 
 export function Navbar() {
   const { theme, toggleTheme } = useThemeContext();
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = navigationItems
+      .map((item) => document.querySelector(item.href))
+      .filter((el): el is Element => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) setActiveSection(`#${visible.target.id}`);
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -50,17 +66,17 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-1 md:flex">
           {navigationItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = activeSection === item.href;
             return (
               <li key={item.href}>
-                <Link
+                <a
                   href={item.href}
                   className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     isActive ? 'text-brand-500' : 'text-soft hover:text-brand-500'
                   }`}
                 >
                   {item.label}
-                </Link>
+                </a>
               </li>
             );
           })}
@@ -75,12 +91,12 @@ export function Navbar() {
           >
             {theme === 'dark' ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
           </button>
-          <Link
-            href="/contact"
+          <a
+            href="#contact"
             className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition-all hover:bg-brand-500 hover:shadow-brand-500/40 sm:block"
           >
             Get started
-          </Link>
+          </a>
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
@@ -100,9 +116,9 @@ export function Navbar() {
             className="glass absolute inset-x-4 top-20 z-40 rounded-2xl p-2 md:hidden"
           >
             {navigationItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive = activeSection === item.href;
               return (
-                <Link
+                <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
@@ -111,16 +127,16 @@ export function Navbar() {
                   }`}
                 >
                   {item.label}
-                </Link>
+                </a>
               );
             })}
-            <Link
-              href="/contact"
+            <a
+              href="#contact"
               onClick={() => setOpen(false)}
               className="mt-1 block rounded-xl bg-brand-600 px-4 py-3 text-center text-sm font-semibold text-white"
             >
               Get started
-            </Link>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

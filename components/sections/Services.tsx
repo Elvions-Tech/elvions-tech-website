@@ -33,7 +33,7 @@ const SERVICES = [
 
 export function Services() {
   return (
-    <section id="services" className="relative py-24">
+    <section id="services" className="relative scroll-mt-24 py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Services"
@@ -78,7 +78,7 @@ export function Services() {
               Start with a focused discovery call and leave with a clear path to launch.
             </p>
             <Link
-              href="/contact"
+              href="#contact"
               className="relative mt-5 inline-flex w-fit items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-brand-700 transition-transform hover:scale-[1.03]"
             >
               Book a call

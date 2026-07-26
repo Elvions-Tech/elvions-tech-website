@@ -7,28 +7,28 @@ const COLUMNS = [
   {
     title: 'Services',
     links: [
-      { label: 'E-commerce', href: '/services' },
-      { label: 'AI Chatbots', href: '/services' },
-      { label: 'ERP Systems', href: '/services' },
-      { label: 'Mobile Apps', href: '/services' },
-      { label: 'Custom Software', href: '/services' },
+      { label: 'E-commerce', href: '#services' },
+      { label: 'AI Chatbots', href: '#services' },
+      { label: 'ERP Systems', href: '#services' },
+      { label: 'Mobile Apps', href: '#services' },
+      { label: 'Custom Software', href: '#services' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About', href: '/about' },
-      { label: 'Products', href: '/products' },
-      { label: 'News', href: '/news' },
-      { label: 'Contact', href: '/contact' },
+      { label: 'About', href: '#about' },
+      { label: 'Products', href: '#products' },
+      { label: 'News', href: '#news' },
+      { label: 'Contact', href: '#contact' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { label: 'Product insights', href: '/news' },
-      { label: 'Contact support', href: '/contact' },
-      { label: 'Privacy', href: '/contact' },
+      { label: 'Product insights', href: '#news' },
+      { label: 'Contact support', href: '#contact' },
+      { label: 'Privacy', href: '#contact' },
     ],
   },
 ];
@@ -89,13 +89,13 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[var(--border)] pt-8 text-sm text-soft sm:flex-row">
           <span>© {new Date().getFullYear()} Elvions Tech. All rights reserved.</span>
           <div className="flex gap-6">
-            <Link href="/contact" className="transition-colors hover:text-brand-500">
+            <Link href="#contact" className="transition-colors hover:text-brand-500">
               Terms
             </Link>
-            <Link href="/contact" className="transition-colors hover:text-brand-500">
+            <Link href="#contact" className="transition-colors hover:text-brand-500">
               Privacy
             </Link>
-            <Link href="/contact" className="transition-colors hover:text-brand-500">
+            <Link href="#contact" className="transition-colors hover:text-brand-500">
               Cookies
             </Link>
           </div>

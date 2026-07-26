@@ -24,7 +24,7 @@ const POSTS = [
 
 export function News() {
   return (
-    <section id="news" className="relative py-24">
+    <section id="news" className="relative scroll-mt-24 py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <div className="text-left">

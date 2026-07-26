@@ -4,6 +4,7 @@ import { Services } from '@/components/sections/Services';
 import { Products } from '@/components/sections/Products';
 import { About } from '@/components/sections/About';
 import { News } from '@/components/sections/News';
+import { Contact } from '@/components/sections/Contact';
 import { SITE_NAME, SITE_TAGLINE, SITE_DESCRIPTION } from '@/constants/site';
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function HomePage() {
       <Products />
       <About />
       <News />
+      <Contact />
     </>
   );
 }

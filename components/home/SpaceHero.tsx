@@ -98,13 +98,13 @@ export function SpaceHero() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href="/contact"
+              href="#contact"
               className="rounded-full border border-white/25 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:border-white/50 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-brand-200"
             >
               Start a project
             </Link>
             <Link
-              href="/services"
+              href="#services"
               className="rounded-full px-6 py-3 text-sm font-semibold text-slate-300 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-200"
             >
               Explore services
