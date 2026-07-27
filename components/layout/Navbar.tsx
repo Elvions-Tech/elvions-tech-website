@@ -86,7 +86,6 @@ export function Navbar() {
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            suppressHydrationWarning
             className="grid h-9 w-9 place-items-center rounded-lg border border-[var(--border)] text-soft transition-colors hover:text-brand-500"
           >
             {theme === 'dark' ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}

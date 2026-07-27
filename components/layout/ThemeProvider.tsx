@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useContext, useMemo, useSyncExternalStore, type ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -11,30 +11,38 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-/**
- * Reads the class already applied by the pre-paint theme script in
- * app/layout.tsx, so this never needs a mount effect (and never disagrees
- * with what's already on screen). Defaults to 'dark' during SSR, matching
- * the script's own default.
- */
-function getInitialTheme(): Theme {
-  if (typeof document === 'undefined') return 'dark';
+const listeners = new Set<() => void>();
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+function getSnapshot(): Theme {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 }
 
+// Matches the hardcoded default in app/layout.tsx so the server-rendered
+// markup always agrees with the client's first hydration pass. The
+// pre-paint script may have already applied a different class; React
+// reconciles that against the real snapshot right after hydration with no
+// mismatch, since this is exactly what useSyncExternalStore is for.
+function getServerSnapshot(): Theme {
+  return 'dark';
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme,
-      toggleTheme: () =>
-        setTheme((current) => {
-          const next: Theme = current === 'dark' ? 'light' : 'dark';
-          document.documentElement.classList.toggle('dark', next === 'dark');
-          window.localStorage.setItem('theme', next);
-          return next;
-        }),
+      toggleTheme: () => {
+        const next: Theme = theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.classList.toggle('dark', next === 'dark');
+        window.localStorage.setItem('theme', next);
+        listeners.forEach((listener) => listener());
+      },
     }),
     [theme],
   );
