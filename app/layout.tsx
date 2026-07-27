@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
+import Script from 'next/script';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { Navbar } from '@/components/layout/Navbar';
@@ -76,10 +77,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`dark ${inter.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
-      </head>
       <body className="min-h-screen w-full bg-[var(--bg)] font-sans text-[var(--text)]">
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <ThemeProvider>
           <SkipLink />
           <Navbar />
